@@ -1,0 +1,43 @@
+body {
+    background-color: rgba(0,0,0,0.7);
+}
+
+.todo {
+    margin-left: 25%;
+    margin-right: 25%;
+    color: black;
+    font-family: monospace;
+}
+
+#todo-div {
+    width: 600px;
+    height: 500px;
+    margin-top: 10%;
+    background-color: lightgray;
+    border-radius: 5%;
+    font-size: 16px;
+    padding: 20px;
+}
+
+#todo-name {
+    text-align: center;
+    font-size: 24px;
+}
+
+#todo-list {
+    text-align: left;
+    font-size: 16px;
+}
+
+/* #todo-new-task {
+    float: left;
+}
+
+#todo-btn {
+    float: left;
+} */
+
+/* #todo-btn {
+    color: black;
+} */
+
