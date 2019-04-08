@@ -7,43 +7,77 @@ var api = "https://api.kraigh.net/todos";
 // }
 
 function handleAddEvent() {
-    var xhttp = new XMLHttpRequest();
-    var newTodo = document.getElementById("todo-task-input").value;
+    if (document.getElementById("todo-task-input") == null) {
+        alert("Please input an event");
+    } else {
+        var xhttp = new XMLHttpRequest();
+        var newTodo = document.getElementById("todo-task-input").value;
 
-    var data = {
-        text: newTodo
-    };
+        var data = {
+            text: newTodo
+        };
 
-    xhttp.open("POST", "https://api.kraigh.net/todos", false);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.setRequestHeader("x-api-key", apiKey);
-    xhttp.send(JSON.stringify(data));
+        xhttp.open("POST", "https://api.kraigh.net/todos", false);
+        xhttp.setRequestHeader("Content-type", "application/json");
+        xhttp.setRequestHeader("x-api-key", apiKey);
+        xhttp.send(JSON.stringify(data));
 
-    xhttp.onreadystatechange = function () {
+        xhttp.onreadystatechange = function () {
 
-        if (this.readyState == 4 && this.status == 200) {
-            var todo = JSON.parse(this.responseText);
-            console.log(todo);
-        } else if (this.readyState == 4) {
-            console.log(this.responseText);
-        }
-    };
+            if (this.readyState == 4 && this.status == 200) {
+                var todo = JSON.parse(this.responseText);
+                console.log(todo);
+            } else if (this.readyState == 4) {
+                console.log(this.responseText);
+            }
+        };
 
+        document.getElementById("todo-task-input").value = "";
+
+        // THIS RELOADS THE PAGE AT THE END OF THE AJAX REQUEST
+        // THIS IS AFTER UPDATING THE API
+        location.reload();
+    }
 }
 
 function handleDeleteEvent() {
-    
-}
-
-window.onload = function() {
+    var api_id = event.target.getAttribute("api_id");
+    console.log(api_id);
     var xhttp = new XMLHttpRequest();
 
-    xhttp.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200){
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            // console.log(this.responseText);
+
+            // THIS RELOADS THE PAGE AT THE END OF THE AJAX REQUEST
+            // THIS IS AFTER UPDATING THE API
+            location.reload();
+        }
+    }
+
+    xhttp.open("DELETE", "https://api.kraigh.net/todos/" + api_id, true);
+    xhttp.setRequestHeader("x-api-key", apiKey);
+    xhttp.send();
+
+
+}
+
+// THIS CODE IS CALLED ON PAGE RELOAD
+// IT ACCESSES THE API AND RENDERS ALL TODO EVENTS BEING HELD
+window.onload = function () {
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
             // Convert response to JSON
             var todos = JSON.parse(this.responseText);
 
-            for(var i = 0; i < todos.length; i++){
+            todos = todos.sort(function (a, b) {
+                return a.created - b.created;
+            });
+            console.log(todos);
+
+            for (var i = 0; i < todos.length; i++) {
                 var listing = document.createElement("div");
 
                 var tempElement = document.createElement("p");
@@ -55,13 +89,12 @@ window.onload = function() {
                 tempButton.innerText = "Delete";
                 tempButton.setAttribute("id", todos[i].text);
                 tempButton.setAttribute("api_id", todos[i].id);
-                
+
                 listing.append(tempElement);
                 listing.append(tempButton);
+                listing.append(document.createElement("hr"));
 
                 document.getElementById("todo-list").append(listing);
-                document.getElementById("todo-list").append(document.createElement("hr"));
-
                 tempButton.addEventListener("click", handleDeleteEvent);
             }
         }
@@ -73,3 +106,4 @@ window.onload = function() {
 }
 
 document.getElementById("todo-btn").addEventListener("click", handleAddEvent);
+

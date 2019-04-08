@@ -13,9 +13,10 @@ body {
 #todo-div { 
     width: 70%;
     height: 600px;
-    margin-top: 10%;
+    margin-top: 10px;
     background-color: lightgray;
     font-size: 16px;
+    border-radius: 20px;
 }
 
 #todo-name {
@@ -33,14 +34,16 @@ body {
 #todo-new-task {
     margin-top: 10px;
     text-align: center;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 .fixed {
     position: sticky;
     background-color: lightgray;
-    top: 0px;
-    width: 100%;
+    width: 70%;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-radius: 20px;
 }
 
 .listing-item {
