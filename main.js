@@ -36,7 +36,8 @@ function handleAddEvent() {
 
         // THIS RELOADS THE PAGE AT THE END OF THE AJAX REQUEST
         // THIS IS AFTER UPDATING THE API
-        location.reload();
+        // location.reload();
+        pageLoad();
     }
 }
 
@@ -51,24 +52,25 @@ function handleDeleteEvent() {
 
             // THIS RELOADS THE PAGE AT THE END OF THE AJAX REQUEST
             // THIS IS AFTER UPDATING THE API
-            location.reload();
+            // location.reload();
+            pageLoad();
         }
     }
 
     xhttp.open("DELETE", "https://api.kraigh.net/todos/" + api_id, true);
     xhttp.setRequestHeader("x-api-key", apiKey);
     xhttp.send();
-
-
 }
 
 // THIS CODE IS CALLED ON PAGE RELOAD
 // IT ACCESSES THE API AND RENDERS ALL TODO EVENTS BEING HELD
-window.onload = function () {
+// window.onload = 
+function pageLoad() {
     var xhttp = new XMLHttpRequest();
 
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("todo-list").innerHTML = "";
             // Convert response to JSON
             var todos = JSON.parse(this.responseText);
 
@@ -107,3 +109,4 @@ window.onload = function () {
 
 document.getElementById("todo-btn").addEventListener("click", handleAddEvent);
 
+pageLoad();
