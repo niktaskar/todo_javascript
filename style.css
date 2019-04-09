@@ -49,3 +49,26 @@ body {
 .listing-item {
     float: left;
 }
+
+.complete {
+    text-decoration: line-through;
+}
+
+button {
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: lightblue;
+}
+
+input {
+    border-radius: 5px;
+    width: 50%;
+}
+
+input:focus {
+    background-color: lightblue;
+}
