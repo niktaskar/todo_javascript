@@ -150,6 +150,13 @@ function renderToDo() {
     xhttp.send();
 }
 
+function handleEnter(){
+    if(event.which === 13){
+        handleAddEvent();
+    }
+}
+
 document.getElementById("todo-btn").addEventListener("click", handleAddEvent);
+document.addEventListener("keydown", handleEnter);
 
 renderToDo();
