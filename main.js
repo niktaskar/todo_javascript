@@ -151,7 +151,7 @@ function renderToDo() {
 }
 
 function handleEnter(){
-    if(event.which === 13){
+    if(event.which === 13 || event.keyCode === 13){
         handleAddEvent();
     }
 }
